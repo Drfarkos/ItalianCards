@@ -7,10 +7,10 @@ function InputField({ onSearch }) {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSearch(inputValue);
-  };
+ const handleSubmit = (e) => {
+  e.preventDefault();
+  onSearch(["Translation 1", "Translation 2", "Translation 3"]);
+};
 
   return (
     <form onSubmit={handleSubmit}>
