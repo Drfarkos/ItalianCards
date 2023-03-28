@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function InputField({ onSearch }) {
   const [inputValue, setInputValue] = useState('');
@@ -7,10 +8,21 @@ function InputField({ onSearch }) {
     setInputValue(e.target.value);
   };
 
- const handleSubmit = (e) => {
-  e.preventDefault();
-  onSearch(["Translation 1", "Translation 2", "Translation 3"]);
-};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get('https://api.mymemory.translated.net/get', {
+        params: {
+          q: inputValue,
+          langpair: 'it|en',
+        },
+      });
+      const translations = response.data.matches.map((item) => item.translation);
+      onSearch(translations, inputValue); // Pass inputValue as the searchedWord
+    } catch (error) {
+      console.error('Error fetching translations:', error);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit}>

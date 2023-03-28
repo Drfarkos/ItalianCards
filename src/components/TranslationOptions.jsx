@@ -3,8 +3,11 @@ import React from 'react';
 function TranslationOptions({ translations, onSelect }) {
   return (
     <div>
-      {translations.map((translation, index) => (
-        <button key={index} onClick={() => onSelect(translation)}>
+      {translations.map(({ translation, searchedWord }, index) => (
+        <button
+          key={index}
+          onClick={() => onSelect(translation, searchedWord)}
+        >
           {translation}
         </button>
       ))}
