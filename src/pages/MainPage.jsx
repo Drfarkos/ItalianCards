@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./MainPage.css";
 import InputField from "../components/InputField.jsx";
 import TranslationOptions from "../components/TranslationOptions.jsx";
 import PersonalDictionary from "../components/PersonalDictionary.jsx";
 import { Link } from "react-router-dom";
+import DictionaryContext from "../DictionaryContext";
 
 function MainPage() {
+  const { dictionary, setDictionary } = useContext(DictionaryContext);
   const [translations, setTranslations] = useState([]);
-  const [dictionary, setDictionary] = useState([]);
 
   const handleSearch = (translationOptions, searchedWord) => {
     const translationObjects = translationOptions.map((translation) => ({
@@ -41,7 +42,12 @@ function MainPage() {
         />
       )}
       <PersonalDictionary dictionary={dictionary} />
-      <Link to="/game">
+      <Link
+        to={{
+          pathname: "/game",
+          state: { dictionary },
+        }}
+      >
         <button className="play-button">Play</button>
       </Link>
     </div>

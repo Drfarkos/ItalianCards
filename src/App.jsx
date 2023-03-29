@@ -1,16 +1,21 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import GamePage from "./pages/GamePage";
+import DictionaryContext from "./DictionaryContext";
 
 function App() {
+  const [dictionary, setDictionary] = useState([]);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/game" element={<GamePage />} />
-      </Routes>
-    </BrowserRouter>
+    <DictionaryContext.Provider value={{ dictionary, setDictionary }}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/game" element={<GamePage />} />
+        </Routes>
+      </Router>
+    </DictionaryContext.Provider>
   );
 }
 
