@@ -1,44 +1,16 @@
-import React, { useState } from "react";
-import "./App.css";
-import InputField from "./components/InputField.jsx";
-import TranslationOptions from "./components/TranslationOptions.jsx";
-import PersonalDictionary from "./components/PersonalDictionary.jsx";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MainPage from "./pages/MainPage";
+import GamePage from "./pages/GamePage";
 
 function App() {
-  const [translations, setTranslations] = useState([]);
-  const [dictionary, setDictionary] = useState([]);
-
-  const handleSearch = (translationOptions, searchedWord) => {
-    const updatedOptions = translationOptions.map((translation) => ({
-      translation,
-      searchedWord,
-    }));
-    setTranslations(updatedOptions);
-  };
-
-  const handleSelect = (translation, searchedWord) => {
-    addWord(searchedWord, translation);
-    setTranslations([]);
-  };
-
-  const addWord = (italianWord, englishTranslation) => {
-    setDictionary((prevDictionary) => [
-      ...prevDictionary,
-      { italian: italianWord, english: englishTranslation },
-    ]);
-  };
-
   return (
-    <div className="App">
-      <InputField onSearch={handleSearch} />
-      {translations.length > 0 && (
-        <TranslationOptions
-          translations={translations}
-          onSelect={(translation, searchedWord) => handleSelect(translation, searchedWord)}
-        />
-      )}
-      <PersonalDictionary dictionary={dictionary} />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/game" element={<GamePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
