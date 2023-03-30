@@ -13,16 +13,11 @@ function GamePage() {
     }
   }, [dictionary, navigate]);
 
-  if (!location.state || !location.state.dictionary) {
-    return null;
-  }
-
-  const { dictionary } = location.state;
   const [selectedWord, setSelectedWord] = useState(null);
 
   useEffect(() => {
     if (dictionary.length > 0) {
-      setSelectedWord(dictionary[Math.floor(Math.random() * dictionary.length)]);
+      setSelectedWord(dictionary[Math.floor(Math.random() * dictionary.length)].english);
     }
   }, [dictionary]);
 
@@ -32,8 +27,8 @@ function GamePage() {
       {selectedWord && (
         <div className="image-container">
           <img
-            src={`https://source.unsplash.com/random/?${selectedWord.english}`}
-            alt={selectedWord.english}
+            src={`https://source.unsplash.com/random/?${selectedWord}`}
+            alt={selectedWord}
             className="game-image"
           />
         </div>
